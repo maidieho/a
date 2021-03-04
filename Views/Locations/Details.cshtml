@@ -1,0 +1,56 @@
+﻿@model a.Models.Location
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Timeslot</th>
+                    <th>Is Booked</th>
+                </tr>
+                @foreach (var item in Model.Appointments)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timeslot.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBooked)
+                </td>
+            </tr>
+                }
+            </table>
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

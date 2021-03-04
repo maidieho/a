@@ -1,0 +1,58 @@
+﻿@model a.ViewModels.LocationViewModel
+
+
+@{
+ViewData["Title"] = "Locations";
+}
+
+<h1>Locations</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Slot</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Locations)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["LocationId"])
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @foreach (var appointment in item.Appointments)
+                    {
+
+                        @appointment.Date <br />
+                        @appointment.Timeslot.Time <br />
+
+                        @(appointment.IsBooked?"Not Avaliable":"Avaliable") <br/>
+
+
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
